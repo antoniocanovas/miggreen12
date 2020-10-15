@@ -1,0 +1,60 @@
+[submodule "account-financial-tools"]
+	path = account-financial-tools
+	url = https://github.com/oca/account-financial-tools
+	branch = 12.0
+[submodule "account-financial-reporting"]
+	path = account-financial-reporting
+	url = https://github.com/oca/account-financial-reporting
+	branch = 12.0
+[submodule "account-invoicing"]
+	path = account-invoicing
+	url = https://github.com/oca/account-invoicing
+	branch = 12.0
+[submodule "account-payment"]
+	path = account-payment
+	url = https://github.com/oca/account-payment
+	branch = 12.0
+[submodule "community-data-files"]
+	path = community-data-files
+	url = https://github.com/oca/community-data-files
+	branch = 12.0
+[submodule "knowledge"]
+	path = knowledge
+	url = https://github.com/oca/knowledge
+	branch = 12.0
+[submodule "l10n-spain"]
+	path = l10n-spain
+	url = https://github.com/oca/l10n-spain
+	branch = 12.0
+[submodule "mis-builder"]
+	path = mis-builder
+	url = https://github.com/oca/mis-builder
+	branch = 12.0
+[submodule "partner-contact"]
+	path = partner-contact
+	url = https://github.com/oca/partner-contact
+	branch = 12.0
+[submodule "reporting-engine"]
+	path = reporting-engine
+	url = https://github.com/oca/reporting-engine
+	branch = 12.0
+[submodule "server-tools"]
+	path = server-tools
+	url = https://github.com/oca/server-tools
+	branch = 12.0
+[submodule "server-ux"]
+	path = server-ux
+	url = https://github.com/oca/server-ux
+	branch = 12.0
+[submodule "social"]
+	path = social
+	url = https://github.com/oca/social
+	branch = 12.0
+[submodule "web"]
+	path = web
+	url = https://github.com/oca/web
+	branch = 12.0
+[submodule "SerpentCS_Contributions"]
+	path = SerpentCS_Contributions
+	url = https://github.com/JayVora-SerpentCS/SerpentCS_Contributions.git
+	branch = 12.0
