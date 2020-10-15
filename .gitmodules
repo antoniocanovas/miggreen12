@@ -61,3 +61,7 @@
 [submodule "addons-green"]
 	path = addons-green
 	url = https://github.com/antoniocanovas/addons-green.git
+[submodule "project"]
+	path = project
+	url = https://github.com/oca/project.git
+	branch = 12.0
