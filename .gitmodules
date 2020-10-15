@@ -58,3 +58,6 @@
 	path = SerpentCS_Contributions
 	url = https://github.com/JayVora-SerpentCS/SerpentCS_Contributions.git
 	branch = 12.0
+[submodule "addons-green"]
+	path = addons-green
+	url = https://github.com/antoniocanovas/addons-green.git
