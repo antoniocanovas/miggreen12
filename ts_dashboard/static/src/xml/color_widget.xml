@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates>
+    <t t-name="ts_dashboard_color_box">
+        <ul style="padding-inline-start: 0px !important;-webkit-padding-start: 0px;">
+            <li t-foreach="color_list" t-as="color" class="color_box"
+                t-att-style="'background-color:'+color">
+                <a href="#"></a>
+            </li>
+        </ul>
+    </t>
+
+    <t t-name="ts_dashboard_list_color_box">
+        <div class="list_view_theme_container" style="display: flex;">
+            <div class="theme-color">
+                <div class="color_list">
+                    <input style="border: 0px;background:#FAC572;color:#FAC572;" class="head mark_list_theme" value="#FAC572"></input>
+                    <span class="pallet_hide" id="#FAC572" style="font-size: 25px;margin-left: 13px;color: green;">&#10004;</span>
+                </div>
+            </div>
+            <div class="theme-color">
+                <div class="color_list">
+                    <input style="border: 0px;background:#3ECB67;color:#3ECB67;" class="head mark_list_theme" value="#3ECB67"></input>
+                    <span class="pallet_hide" id="#3ECB67" style="font-size: 25px;margin-left: 13px;color: green;">&#10004;</span>
+                </div>
+            </div>
+            <div class="theme-color">
+                <div class="color_list">
+                    <input style="border: 0px;background:#F2834F;color:#F2834F;" class="head mark_list_theme" value="#F2834F"></input>
+                    <span class="pallet_hide" id="#F2834F" style="font-size: 25px;margin-left: 13px;color: green;">&#10004;</span>
+                </div>
+            </div>
+            <div class="theme-color">
+                <div class="color_list">
+                    <input style="border: 0px;background:#333333;color:#333333;" class="head mark_list_theme" value="#333333"></input>
+                    <span class="pallet_hide" id="#333333" style="font-size: 25px;margin-left: 13px;color: green;">&#10004;</span>
+                </div>
+            </div>
+            <div class="theme-color">
+                <div   class="color_list">
+                    <input style="border: 0px;background:#7b88e3;color:#7b88e3;" class="head mark_list_theme" value="#7b88e3"></input>
+                    <span  id="#7b88e3" class="pallet_hide" style="font-size: 25px;margin-left: 13px;color: green;">&#10004;</span>
+                </div>
+            </div>
+            <div class="theme-color">
+                <div class="color_list">
+                    <input style="border: 0px;background:#f95462;color:#f95462;" class="head mark_list_theme" value="#f95462"></input>
+                    <span id="#f95462" class="pallet_hide" style="font-size: 25px;margin-left: 13px;color: green;">&#10004;</span>
+                </div>
+            </div>
+            <div class="theme-color">
+                <div class="color_list">
+                    <input style="border: 0px;background:#875A7A;color:#875A7A;" class="head mark_list_theme" value="#875A7A"></input>
+                    <span id="#875A7A" class="pallet_hide" style="font-size: 25px;margin-left: 13px;color: green;">&#10004;</span>
+                </div>
+            </div>
+            <div class="theme-color">
+                <div class="color_list">
+                    <input style="border: 0px;background:#AFB5B5;color:#AFB5B5;" class="head mark_list_theme" value="#AFB5B5"></input>
+                    <span class="pallet_hide" id="#AFB5B5" style="font-size: 25px;margin-left: 13px;color: green;">&#10004;</span>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

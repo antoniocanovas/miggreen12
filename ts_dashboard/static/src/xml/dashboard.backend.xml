@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+    <t t-name="ts_dashboard.DashboardMain">
+        <div class="">
+            <div class="container-fluid">
+                <t t-call="ts_dashboard.dashboard_header"/>
+                <div class="o_ts_dashboard_content"/>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="chart_renderer_container">
+        <div class="grid-stack-item-content ts_item_chart_box card shadow">
+            <div class="card-header">
+                <h5><t t-esc="dashboard['name']"/></h5>
+                <div class="card-header-right">
+                    <ul class="list-unstyled">
+                        <li><i class="fa fa-window-maximize full-card"/></li>
+                        <li><i class="fa fa-file-pdf-o export-pdf" t-att-chart-id="dashboard['id']"/></li>
+                        <li><i class="fa fa-archive close-card o_hidden"/></li>
+                        <li><i class="fa fa-pencil edit-card o_hidden"/></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="chart-container ts_chart_body" >
+                <canvas t-att-id="dashboard['id']"/>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="chart_renderer_container_from">
+        <div class="container-fluid">
+            <div class="ts_item_chart_box card shadow">
+                <div class="card-header" style="padding: 10px 0px 0px 0px;text-align: center;">
+                    <h5><t t-esc="chart_name"/></h5>
+                </div>
+                <div class="chart-container" style="padding: 20px;">
+                    <canvas id="canvas_chart_id" height="250px"/>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="tile_renderer_container_from">
+        <div t-att-class="'order-card card bg-c-' + dashboard['color']">
+            <div class="card-block card-header">
+                <div class="card-header-right">
+                    <ul class="list-unstyled">
+                        <li><i style="display: block;font-size: 18px; margin: -15px 7px;" class="fa fa-pencil edit-card o_hidden"/></li>
+                    </ul>
+                </div>
+                <h6 class="m-b-20"><t t-esc="dashboard['name']"/></h6>
+                <h2 class="text-right"><i style="color: white;" t-att-class="'fa f-left ' + (dashboard['fa_icon'] or 'fa-shopping-cart')"/>
+                    <span class="ng-tns-c5-1" style="font-size: inherit;">
+                        <t t-if="dashboard['show_currency_symbol']">
+                            <t t-esc="widget.render_monetary_field(display_result['display_result'], display_result['currency_id'])"/>
+                        </t>
+                        <t t-else="1">
+                            <t t-esc="display_result['display_result']"/>
+                        </t>
+                    </span>
+                </h2>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="list_renderer_container_from">
+        <div class="table-responsive" style="background-color: #fff;">
+            <table class="table table_rounded_border">
+                <thead t-att-style="'color: #fff;background-color:'+ display_result['list_themes'] + ';' + 'border-color:'+ display_result['list_themes'] +';'">
+                <tr>
+                    <th style="border-bottom: 0px;text-align: center;" t-att-colspan="dashboard['count_list_labels']"><t t-esc="display_result['name']"/></th>
+                </tr>
+                <tr>
+                    <t t-foreach="dashboard['list_labels']" t-as="label">
+                        <th style="border-top: 0px;" scope="col"><t t-esc="label"/></th>
+                    </t>
+                </tr>
+                </thead>
+                    <tbody style="background-color: white;">
+                        <t t-foreach="dashboard['list_data']" t-as="record">
+                            <tr>
+                                <t t-foreach="record" t-as="rec">
+                                    <t t-if="rec_value">
+                                        <td><t t-esc="rec_value"/></td>
+                                    </t>
+                                    <t t-else="">
+                                        <td> </td>
+                                    </t>
+                                </t>
+                            </tr>
+                        </t>
+                    </tbody>
+              </table>
+        </div>
+    </t>
+
+    <t t-name="ts_dashboard.dashboard_body">
+        <t t-set="dashboard_data" t-value="widget.data"/>
+        <div class="ts_dashboard_main_body">
+            <div class="grid-stack m-3" style="height=4300px;">
+                <t t-foreach="dashboard_data" t-as="dashboard">
+                    <t t-if="dashboard['type'] == 'tile'">
+                        <div class="grid-stack-item" t-att-data-gs-id="dashboard['id']" t-att-data-gs-x="dashboard['x']"
+                             t-att-data-gs-y="dashboard['y']" data-gs-min-width="3" data-gs-min-height="2"
+                             t-att-data-gs-width="dashboard['width'] == 0 ? 3 : dashboard['width']"
+                             t-att-data-gs-height="dashboard['height'] == 0 ? 2 : dashboard['height']">
+                            <div t-att-class="'grid-stack-item-content order-card card bg-c-' + dashboard['color']">
+                                <div class="card-block card-header">
+                                    <div class="card-header-right">
+                                        <ul class="list-unstyled">
+                                            <li><i style="display: block;font-size: 18px; margin: -15px 7px;" class="fa fa-pencil edit-card o_hidden"/></li>
+                                        </ul>
+                                    </div>
+                                    <h6 class="m-b-20"><t t-esc="dashboard['name']"/></h6>
+                                    <h2 class="text-right"><i style="color: white;" t-att-class="'fa f-left ' + (dashboard['fa_icon'] or 'fa-shopping-cart')"/>
+                                        <span class="ng-tns-c5-1" style="font-size: inherit;">
+                                            <t t-if="dashboard['show_currency_symbol']">
+                                                <t t-esc="widget.render_monetary_field(dashboard['display_result'], dashboard['currency_id'])"/>
+                                            </t>
+                                            <t t-else="1">
+                                                <t t-esc="dashboard['display_result']"/>
+                                            </t>
+                                        </span>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-if="dashboard['type'] == 'line' || dashboard['type'] == 'bar' || dashboard['type'] == 'pie' || dashboard['type'] == 'polarArea' ">
+                        <div class="grid-stack-item" t-att-data-gs-id="dashboard['id']" t-att-data-gs-x="dashboard['x']"
+                             t-att-data-gs-y="dashboard['y']" data-gs-min-width="3" data-gs-min-height="5"
+                             t-att-data-gs-width="dashboard['width'] == 0 ? 4 : dashboard['width']"
+                             t-att-data-gs-height="dashboard['height'] == 0 ? 6 : dashboard['height']">
+                            <t t-call="chart_renderer_container"/>
+                        </div>
+                    </t>
+
+                    <t t-if="dashboard['type'] == 'list'">
+                        <div class="grid-stack-item" t-att-data-gs-id="dashboard['id']" data-gs-min-width="3" data-gs-min-height="3"
+                             t-att-data-gs-x="dashboard['x']"
+                             t-att-data-gs-y="dashboard['y']"
+                             t-att-data-gs-width="dashboard['width'] == 0 ? 3 : dashboard['width']"
+                             t-att-data-gs-height="dashboard['height'] == 0 ? 2 : dashboard['height']">
+                            <div class="grid-stack-item-content">
+                                <div class="table-responsive" style="background-color: #fff;">
+                                    <table class="table table_rounded_border">
+                                        <thead t-att-style="'color: #fff;background-color:'+ dashboard['list_themes'] + ';' + 'border-color:'+ dashboard['list_themes'] +';'">
+                                        <tr>
+                                            <th style="border-bottom: 0px;text-align: center;" t-att-colspan="dashboard['count_list_labels']"><t t-esc="dashboard['name']"/></th>
+                                        </tr>
+                                        <tr>
+                                            <t t-foreach="dashboard['list_labels']" t-as="label">
+                                                <th style="border-top: 0px;" scope="col"><t t-esc="label"/></th>
+                                            </t>
+                                        </tr>
+                                        </thead>
+                                            <tbody style="background-color: white;">
+                                                <t t-foreach="dashboard['list_data']" t-as="record">
+                                                    <tr>
+                                                        <t t-foreach="record" t-as="rec">
+                                                            <t t-if="rec_value">
+                                                                <td><t t-esc="rec_value"/></td>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <td> </td>
+                                                            </t>
+                                                        </t>
+                                                    </tr>
+                                                </t>
+                                            </tbody>
+                                      </table>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="ts_dashboard.dashboard_header">
+        <div class="row">
+            <br/>
+            <br/>
+        </div>
+    </t>
+
+    <t t-name="ts_dashboard.DateRangeButtons">
+        <div class="btn-group btn-group-sm o_date_range_buttons pull-right">
+            <div class="o_form_buttons_view">
+                <button type="button"
+                        class="btn btn-primary btn-bg js_add_position">
+                    Add
+                </button>
+                <button type="button"
+                        class="btn btn-primary btn-bg js_edit_position">
+                    Edit
+                </button>
+            </div>
+            <div class="o_form_buttons_edit o_hidden">
+                <div class='box' data-toggle="tooltip" data-placement="bottom" title="Update Interval">
+                    <select id="interval_value" name='refresh_interval'>
+                        <t t-foreach='update_interval_selection' t-as='interval'>
+                            <option style="color:white;" t-att-value='interval'
+                                    t-att-selected="refresh_interval ? ((interval === refresh_interval) ? true : undefined) : undefined">
+                                <t t-esc='interval_value'/>
+                            </option>
+                        </t>
+                    </select>
+                </div>
+                <button type="button"
+                        class="btn btn-primary btn-bg js_save_position">
+                    Save
+                </button>
+                <button type="button"
+                        class="btn btn-default btn-bg js_cancel_position">
+                    Discard
+                </button>
+            </div>
+        </div>
+    </t>
+</templates>

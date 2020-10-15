@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ts_dashboard_view_view_tree" model="ir.ui.view">
+            <field name="name">ts.dashboard.list</field>
+            <field name="model">ts.dashboard</field>
+            <field name="arch" type="xml">
+                <tree string="Sales Orders">
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="ts_dashboard_view_form" model="ir.ui.view">
+            <field name="name">ts.dashboard.form</field>
+            <field name="model">ts.dashboard</field>
+            <field name="arch" type="xml">
+                <form string="Dashboard">
+                    <header>
+                        <button name="action_moveto_board" type="object" string="Move to Board"
+                                class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-check">
+                                <field name="active" widget="boolean_button" options='{"terminology": "active"}'/>
+                            </button>
+                        </div>
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="type" string="Chart Type"/>
+                                <field name="pie_type"
+                                       attrs="{'invisible': [('type', '!=', 'pie')],'required': [('type', '=', 'pie')]}"/>
+                                <field name="bar_type"
+                                       attrs="{'invisible': [('type', '!=', 'bar')],'required': [('type', '=', 'bar')]}"/>
+                                <field name="is_stacked_bar" attrs="{'invisible': [('type', '!=', 'bar')]}"/>
+                                <field name="is_semi_circle_bar" attrs="{'invisible': [('type', '!=', 'pie')]}"/>
+
+                                <field name="fa_icon" string="fa Icons" placeholder="fa-shopping-cart"
+                                       attrs="{'invisible': [('type', 'not in', ['tile'])]}"/>
+                                <field name="show_currency_symbol"
+                                       attrs="{'invisible': [('type', 'not in', ['tile'])]}"/>
+                                <field name="color" attrs="{'invisible': [('type', 'not in', ['tile'])]}"/>
+                                <field name="chart_colors"
+                                       attrs="{'invisible': [('type', 'not in', ['line','bar','pie', 'polarArea', 'radar'])]}"/>
+                                <field name="web_color" string="Preview" widget="ts_dashboard_color_box"
+                                       attrs="{'invisible': [('type', 'not in', ['line','bar','pie', 'polarArea', 'radar'])]}"/>
+                            </group>
+                            <div>
+                                <field name="chart_data" invisible="1"/>
+                                <field name="chart_preview"
+                                       class="oe_horizontal_separator oe_clear"
+                                       widget="dashboard_chart_preview">
+                                </field>
+                            </div>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="list_themes" string="Themes" widget="ts_dashboard_list_color_box"
+                                       attrs="{'invisible': [('type', 'not in', ['list'])]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Domain">
+                                <group>
+                                    <label for="dashboard_model_id" string="Model Name"/>
+                                    <div>
+                                        <field name="dashboard_model_id" options="{'no_create': True,'no_open':True}"
+                                               class="oe_inline"/>
+                                        <field name="dashboard_model_name" invisible="1"/>
+                                        <field name="dashboard_domain" widget="domain"
+                                               options="{'model': 'dashboard_model_name'}"/>
+                                    </div>
+                                </group>
+                            </page>
+                            <page string="Calculations">
+                                <group>
+                                    <group>
+                                        <field name="list_type"
+                                               attrs="{'invisible': [('type', 'not in', ['list'])], 'required': [('type', 'in', ['list'])]}"/>
+                                        <field name="list_view_fields" options="{'no_create': True,'no_open':True}"
+                                               widget="many2many_tags"
+                                               attrs="{'invisible': ['|',('type', 'not in', ['list']),('list_type', '!=', 'non_group')],'required': [('type', '=', 'list'),('list_type', '=', 'non_group')]}"/>
+                                        <field name="list_view_groupby_fields" widget="many2many_tags"
+                                               attrs="{'invisible': ['|',('type', 'not in', ['list']),('list_type', '!=', 'group')],'required': [('type', '=', 'list'),('list_type', '=', 'group')]}"/>
+                                        <field name="operation_type"
+                                               attrs="{'invisible': [('type', 'in', ['list'])], 'required': [('type', 'not in', ['list'])]}"/>
+                                        <field name="measure_field_id" options="{'no_create_edit': True}"
+                                               attrs="{'invisible': [('type', 'in', ['list'])],'required': [('type', 'not in', ['list'])]}"/>
+                                        <field name="date_filter_field_id"
+                                               attrs="{'invisible': [('type', 'not in', ['line','bar','pie','tile', 'polarArea', 'radar', 'list'])]}"/>
+                                        <field name="date_selection"
+                                               attrs="{'invisible': [('type', 'not in', ['line','bar','pie','tile', 'polarArea', 'radar', 'list'])]}"/>
+                                        <field name="start_date"
+                                               attrs="{'invisible': [('date_selection', '!=', 'c_range')], 'required': [('date_selection', '=', 'c_range')]}"/>
+                                        <field name="end_date"
+                                               attrs="{'invisible': [('date_selection', '!=', 'c_range')], 'required': [('date_selection', '=', 'c_range')]}"/>
+                                    </group>
+                                    <group string="Group by">
+                                        <!--('list_type', '=', 'non_group'),'|',-->
+                                        <field name="groupby_field_id"
+                                               attrs="{'invisible': ['|',('type', 'not in', ['line','bar','pie', 'polarArea', 'radar','list']),('type', 'in', ['list']),('list_type','not in',['group'])], 'required': ['|',('type', 'in', ['line','bar','pie', 'polarArea']),('type', 'in', ['list']),('list_type','in',['group'])]}"/>
+                                        <field name="sorting_field"
+                                               attrs="{'invisible': [('type', 'not in', ['list'])]}"/>
+                                        <field name="sorting_order"
+                                               attrs="{'invisible': [('type', 'not in', ['list'])]}"/>
+                                        <field name="limit_record_count"
+                                               attrs="{'invisible': [('type', 'not in', ['list'])]}"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Dashboard Actions-->
+        <record id="backend_ts_dashboard" model="ir.actions.client">
+            <field name="name">Dashboard</field>
+            <field name="tag">backend_ts_dashboard</field>
+        </record>
+
+        <record id="ir_actions_server_ts_dashboard" model="ir.actions.server">
+            <field name="name">Dashboard</field>
+            <field name="model_id" ref="ts_dashboard.model_ts_dashboard"/>
+            <field name="state">code</field>
+            <field name="code">action = model.action_dashboard_redirect()</field>
+        </record>
+
+        <record id="action_ts_dashboard_form" model="ir.actions.act_window">
+            <field name="name">Dashboard</field>
+            <field name="res_model">ts.dashboard</field>
+            <field name="view_type">form</field>
+            <field name="domain">['|',('active', '=', True), ('active', '=', False)]</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu items -->
+        <menuitem name="My Dashboard"
+                  id="menu_ts_dashboard"
+                  sequence="8"
+                  web_icon="ts_dashboard,static/description/icon.png"
+                  groups="ts_dashboard.ts_dashboard_group_manager"/>
+
+        <menuitem name="Dashboard"
+                  id="menu_ts_dashboard_main"
+                  parent="menu_ts_dashboard"
+                  sequence="1"
+                  action="ts_dashboard.ir_actions_server_ts_dashboard"
+                  groups="ts_dashboard.ts_dashboard_group_manager"/>
+
+
+    </data>
+</odoo>

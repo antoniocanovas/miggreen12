@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="view_move_to_board_form">
+        <field name="name">move.to.board.form</field>
+        <field name="model">move.to.board</field>
+        <field name="arch" type="xml">
+            <form string="Move to Board">
+                <group>
+                    <field name="board_id"/>
+                </group>
+                <footer>
+                    <button string="Move" name="move_to_board" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_move_to_board" model="ir.actions.act_window">
+        <field name="name">Move to Board</field>
+        <field name="res_model">move.to.board</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

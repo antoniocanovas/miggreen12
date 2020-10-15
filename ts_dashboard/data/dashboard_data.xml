@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="action_dashboard" model="ir.actions.act_url">
+            <field name="name">Dashboard</field>
+            <field name="url">/</field>
+            <field name="target">self</field>
+        </record>
+
+        <record model="ir.config_parameter" id="dashboard_refresh_interval">
+            <field name="key">refresh_interval</field>
+            <field name="value">0</field>
+        </record>
+
+        <record id="ts_default_dashboard_record" model="ts.board.config">
+            <field name="name">My Default Dashboard</field>
+            <field name="board_menu_name">Dashboard</field>
+            <field name="parent_menu_id" ref="menu_ts_dashboard"/>
+            <field name="board_menu_id" ref="menu_ts_dashboard_main"/>
+            <field name="board_action_id" ref="ts_dashboard.backend_ts_dashboard"/>
+            <field name="is_default_dashboard">True</field>
+            <field name="group_access_id" eval="[(6, 0, [ref('ts_dashboard.ts_dashboard_group_manager')])]"/>
+        </record>
+    </data>
+</odoo>

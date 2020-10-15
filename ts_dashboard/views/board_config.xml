@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="ts_board_config_form" model="ir.ui.view">
+            <field name="name">ts.board.config</field>
+            <field name="model">ts.board.config</field>
+            <field name="arch" type="xml">
+                <form string="Board Config">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button"
+                                    icon="fa-dashboard"
+                                    name="action_open_related_items"
+                                    type="object">
+                                <field name="items_count"
+                                       widget="statinfo" string="Items"/>
+                            </button>
+                            <button name="toggle_active"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                       options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" string="Board Name"/>
+                            <h1>
+                                <field name="name" placeholder="Board Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="board_menu_name"/>
+                                <field name="parent_menu_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Access Rights">
+                                <field name="group_access_id" nolabel="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="ts_board_config_tree" model="ir.ui.view">
+            <field name="name">ts.board.config</field>
+            <field name="model">ts.board.config</field>
+            <field name="arch" type="xml">
+                <tree string="Board Config">
+                    <field name="name"/>
+                    <field name="board_menu_name"/>
+                    <field name="parent_menu_id"
+                           options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                    <field name="group_access_id"
+                           options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                    <field name="items_count" string="Item Count"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_ts_board_config" model="ir.actions.act_window">
+            <field name="name">Board Configuration</field>
+            <field name="res_model">ts.board.config</field>
+             <field name="domain">['|',('active', '=', True), ('active', '=', False)]</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="menu_ts_board_config" name="Board Configuration" parent="menu_ts_dashboard"
+                  action="action_ts_board_config" sequence="100"/>
+    </data>
+</odoo>
